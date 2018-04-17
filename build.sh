@@ -1,1 +1,1 @@
-sudo docker build -t dev:latest .
+sudo docker build -t ewright362/dev_environment .

@@ -9,21 +9,26 @@ RUN apt-get install -y \
     sudo \
     python3 \
     python3-pip \
+    curl
 
 RUN curl -O https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
 RUN tar xvf go1.6.linux-amd64.tar.gz
 
+RUN mv go /usr/local
+
 ENV GOPATH $HOME/work
-RUN export PATH=$PATH:/usr/local/go/bin:${GOPATH}/bin
+ENV PATH=$PATH:/usr/local/go/bin:${GOPATH}/bin
 
-RUN mkdir -p /home/god
+RUN mkdir -p /mount
 
 
-WORKDIR /home/god/
+WORKDIR /mount
 RUN git clone https://github.com/ethanjwright/dotfiles
-WORKDIR /home/god/dotfiles/bin
+WORKDIR /mount/dotfiles/bin
 RUN ./other_setup_all.sh
 
 COPY . .
+
+WORKDIR /mount
 
 CMD ["/bin/bash"]
