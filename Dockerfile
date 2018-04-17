@@ -8,9 +8,16 @@ RUN apt-get install -y \
     git \
     sudo \
     python3 \
-    python3-pip
+    python3-pip \
+
+RUN curl -O https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
+RUN tar xvf go1.6.linux-amd64.tar.gz
+
+ENV GOPATH $HOME/work
+RUN export PATH=$PATH:/usr/local/go/bin:${GOPATH}/bin
 
 RUN mkdir -p /home/god
+
 
 WORKDIR /home/god/
 RUN git clone https://github.com/ethanjwright/dotfiles
